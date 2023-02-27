@@ -11,28 +11,30 @@
 void setup() {
   Serial.begin(115200);
   WiFi.begin(ssid, password);
-while (WiFi.status() != WL_CONNECTED) {
-  delay(500); Serial.print(".");  }
-Serial.println(" Connected to ");         
-Serial.print(" hotspot: ");     
-Serial.println(WiFi.localIP());              
-Serial.print(" wifi: ");    
-Serial.println(WiFi.softAPIP());           
-Serial.print(" Signal Strength ");           
-Serial.print(WiFi.RSSI());              
-Serial.println(" dBm");              
-Serial.print("Router IP ");          
-Serial.println(WiFi.gatewayIP());                 
-Serial.print(" Device MAC ");              
-Serial.println(WiFi.macAddress());
+  while (WiFi.status() != WL_CONNECTED) {
+    delay(500); 
+    Serial.print(".");
+  }
+  Serial.println(" Connected to ");         
+  Serial.print(" hotspot: ");     
+  Serial.println(WiFi.localIP());              
+  Serial.print(" wifi: ");    
+  Serial.println(WiFi.softAPIP());           
+  Serial.print(" Signal Strength ");           
+  Serial.print(WiFi.RSSI());              
+  Serial.println(" dBm");              
+  Serial.print("Router IP ");          
+  Serial.println(WiFi.gatewayIP());                 
+  Serial.print(" Device MAC ");              
+  Serial.println(WiFi.macAddress());
+
   // Initialize time with NTP server
-configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+  configTime(gmtOffset_sec, daylightOffset_sec, ntpServer);
+
   // Wait for time to be set
-  time_t now = time(nullptr);
-  while (now < 1000) {
+  while (time(nullptr) < 1000) {
     delay(1000);
     Serial.println("Waiting for time synchronization...");
-    now = time(nullptr);
   }
 }
 
@@ -41,7 +43,7 @@ void loop() {
   time_t now = time(nullptr);
   struct tm timeinfo;
   localtime_r(&now, &timeinfo);
-char time_str[64];
-  strftime(time_str, sizeof(time_str), "%A, %B %d %Y %H:%M:%S", &timeinfo);
+  char time_str[40];
+  strftime(time_str, sizeof(time_str), "%H:%M:%S  %d/%B/%Y  %A", &timeinfo);
   Serial.println(time_str);
-}  
+}
