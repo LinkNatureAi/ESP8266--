@@ -3,6 +3,12 @@
 
 void ICACHE_RAM_ATTR ISRoutine ();
 //D0,D8 interrut not wrk
+
+void ISRoutine () {
+   Serial.println("INTRERUPPT");
+   digitalWrite(LED_BUILTIN,0);
+}
+
 void setup () {
  Serial.begin(115200);
  pinMode(D1,INPUT_PULLUP);
@@ -19,9 +25,4 @@ void loop () {
   delay(1000);  
   Serial.println("normal_run"); 
   delay(1000); 
-}
-
-void ISRoutine () {
-   Serial.println("INTRERUPPT");
-   digitalWrite(LED_BUILTIN,0);
 }
