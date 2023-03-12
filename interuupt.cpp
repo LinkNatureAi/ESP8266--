@@ -1,6 +1,6 @@
 /* This code is for executing the interrupt in ESP8266.
  The main purpose is to solve the ISR not in RAM isssue. */
-
+#include <Arduino.h>
 void ICACHE_RAM_ATTR ISRoutine ();
 //D0,D8 interrut not wrk
 
