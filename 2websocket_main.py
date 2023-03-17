@@ -5,8 +5,8 @@ def web_page():
     relay_state = ''
   else:
     relay_state = 'checked'
-  html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=yes"><style>
-  body{font-family:Arial; text-align: center; margin: 0px auto; padding-top:30px;}
+  html = """<html><head><meta name="viewport" content="width=device-width, initial-scale=1.0,user-scalable=yes"><style>   
+  body{font-family:Arial; text-align: center; margin: 0px auto; padding-top:30px; user-select: none;}
   .switch{position:relative;display:inline-block;width:120px;height:68px}.switch input{display:none}
   .slider{position:absolute;top:0;left:0;right:0;bottom:0;background-color:#ccc;border-radius:34px}
   .slider:before{position:absolute;content:"";height:52px;width:52px;left:8px;bottom:8px;background-color:#fff;-webkit-transition:.4s;transition:.4s;border-radius:68px}
@@ -50,3 +50,4 @@ while True:
   except OSError as e:
     conn.close()
     print('Connection closed')
+    
