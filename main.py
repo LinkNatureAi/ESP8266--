@@ -18,6 +18,6 @@ while True:
     # Turn the LED off
     led_pin.off()
     # Print a message to the serial monitor
-    uart.write('LED OFF\n'.encode())
+    uart.write('LED OFF_esp8266_main_py\n'.encode())
     # Wait for 1 second
     time.sleep(1)
