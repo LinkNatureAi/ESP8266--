@@ -4,7 +4,7 @@ try:
 except:
   import socket
 
-from machine import Pin
+import machine
 import network
 
 import esp
@@ -28,7 +28,7 @@ print('Connection successful')
 print(station.ifconfig())
 
 # ESP32 GPIO 2
-relay = Pin(2, Pin.OUT)
+relay = machine.Pin(2, machine.Pin.OUT)
 
 def web_page():
     if relay.value() == 1:
