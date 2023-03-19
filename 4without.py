@@ -27,13 +27,9 @@ while station.isconnected() == False:
 print('Connection successful')
 print(station.ifconfig())
 
-# ESP32 GPIO 26
-#relay = Pin(2, Pin.OUT)
-
-# ESP8266 GPIO 2
+# ESP32 GPIO 2
 relay = Pin(2, Pin.OUT)
 
-# welcome
 def web_page():
     if relay.value() == 1:
         relay_state = ''
@@ -135,10 +131,10 @@ while True:
     relay_off = request.find('/?relay=off')
     if relay_on == 6:
       print('RELAY ON')
-      relay.value(0)
+      relay.value(1)
     if relay_off == 6:
       print('RELAY OFF')
-      relay.value(1)
+      relay.value(0)
     response = web_page()
     conn.send('HTTP/1.1 200 OK\n')
     conn.send('Content-Type: text/html\n')
