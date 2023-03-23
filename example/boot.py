@@ -1,122 +1,57 @@
-import network
-import socket
+import gc
 import machine
-import time
+import network
+import upip
 
-ssid = ""
-password = ""
 
-ap_ssid = "Setup Portal"
-ap_password = "mrdiy.ca"
-
-html = """<!DOCTYPE html>
-<html>
-<head>
-	<title>Wifi Setup</title>
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<style>
-		body {
-			font-family: Arial, Helvetica, sans-serif;
-			background-color: #f5f5f5;
-			margin: 0;
-			padding: 0;
-		}
-
-		h1 {
-			font-size: 1.5rem;
-			text-align: center;
-			margin-top: 1.5rem;
-		}
-
-		.form {
-			max-width: 400px;
-			margin: 1.5rem auto;
-			background-color: #fff;
-			border-radius: 10px;
-			padding: 1rem;
-			box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-		}
-
-		.form label,
-		.form input[type="password"],
-		.form input[type="text"] {
-			display: block;
-			width: 100%;
-			margin-top: 0.5rem;
-		}
-
-		.form input[type="password"],
-		.form input[type="text"] {
-			padding: 0.5rem;
-			font-size: 1rem;
-			border: 1px solid #ccc;
-			border-radius: 3px;
-			background-color: #f5f5f5;
-			color: #333;
-		}
-
-		.form button[type="submit"] {
-			display: block;
-			width: 100%;
-			padding: 0.5rem;
-			font-size: 1rem;
-			background-color: #007bff;
-			color: #fff;
-			border: none;
-			border-radius: 3px;
-			margin-top: 1rem;
-			cursor: pointer;
-		}
-
-		.error {
-			color: red;
-			margin-top: 0.5rem;
-			font-size: 0.8rem;
-		}
-	</style>
-</head>
-<body>
-	<div class="form">
-		<h1>Wifi Setup</h1>
-		<form method="post">
-			<label for="ssid">SSID:</label>
-			<input type="text" id="ssid" name="ssid" required>
-			<label for="password">Password:</label>
-			<input type="password" id="password" name="password" required>
-			<button type="submit">Save</button>
-		</form>
-	</div>
-</body>
-</html>
-"""
-
-def connect_to_wifi():
-    global ssid, password
-
+def connect_wlan(ssid, password):
+    """Connects build-in WLAN interface to the network.
+    Args:
+        ssid: Service name of Wi-Fi network.
+        password: Password for that Wi-Fi network.
+    Returns:
+        True for success, Exception otherwise.
+    """
     sta_if = network.WLAN(network.STA_IF)
+    ap_if = network.WLAN(network.AP_IF)
     sta_if.active(True)
+    ap_if.active(False)
 
     if not sta_if.isconnected():
-        print("Connecting to wifi...")
+        print("Connecting to WLAN ({})...".format(ssid))
+        sta_if.active(True)
         sta_if.connect(ssid, password)
         while not sta_if.isconnected():
-            time.sleep(1)
-        print("Wifi connected: ", sta_if.ifconfig())
+            pass
 
-def start_ap():
-    global ap_ssid, ap_password, html
+    return True
 
-    ap_if = network.WLAN(network.AP_IF)
-    ap_if.active(True)
-    ap_if.config(essid=ap_ssid, password=ap_password)
-    print("Access Point started: ", ap_if.ifconfig())
 
-    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-    s.bind(('', 80))
-    s.listen(5)
-    print("Listening on port 80...")
-    
-    while True:
-        client_sock, client_addr = s.accept()
-        print("Client connected: ", client_addr)
-        handle_request(client_sock)
+def main():
+    """Main function. Runs after board boot, before main.py
+    Connects to Wi-Fi and checks for latest OTA version.
+    """
+
+    gc.collect()
+    gc.enable()
+
+    # Wi-Fi credentials
+    SSID = "OPPO"
+    PASSWORD = "123456789"
+
+    connect_wlan(SSID, PASSWORD)
+
+    # Install Senko from PyPi
+   # upip.install("micropython-senko")
+
+    import senko
+    OTA = senko.Senko(user="RangerDigital", repo="senko", working_dir="examples", files=["main.py"])
+
+    if OTA.update():
+        print("Updated to the latest version! Rebooting...")
+        machine.reset()
+
+
+if __name__ == "__main__":
+    main()
+
