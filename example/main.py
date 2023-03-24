@@ -20,4 +20,4 @@ while True:
     # Print a message to the serial monitor
     uart.write('LED OFF_esp8266_main_py\n'.encode())
     # Wait for 1 second
-    time.sleep(5)
+    time.sleep(1)
