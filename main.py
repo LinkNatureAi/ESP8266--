@@ -62,7 +62,7 @@ async def led_loop():
         # Print a message to the serial monitor
         uart.write('LED ON\n'.encode())
         # Wait for 1 second
-        await asyncio.sleep(1)
+        await asyncio.sleep(3)
         # Turn the LED off
         led_pin.off()
         # Print a message to the serial monitor
