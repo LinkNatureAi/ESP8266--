@@ -2,7 +2,7 @@ import machine
 import time
 
 # Set up the LED pin
-led_pin = machine.Pin(2, machine.Pin.OUT)
+led_pin = machine.Pin(12, machine.Pin.OUT)
 
 # Set up the serial communication
 uart = machine.UART(0, baudrate=115200)
