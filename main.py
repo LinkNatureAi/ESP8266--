@@ -14,7 +14,7 @@ while True:
     # Print a message to the serial monitor
     uart.write('LED ON\n'.encode())
     # Wait for 1 second
-    time.sleep(3)
+    time.sleep(1)
     # Turn the LED off
     led_pin.off()
     # Print a message to the serial monitor
