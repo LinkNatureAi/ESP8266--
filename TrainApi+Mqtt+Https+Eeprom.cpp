@@ -1,4 +1,3 @@
-
 #include <ESP8266WiFi.h>
 #include <PubSubClient.h>
 #include <WiFiClientSecureBearSSL.h>
@@ -9,9 +8,9 @@ const char* ssid = "POCO X3 Pro";
 const char* password = "1234567890";
 const char* mqttServer = "broker.hivemq.com";
 const char* clientID = "EspClient";
-const char* trainTopic = "train";
-const char* trainNumTopic = "train-num";
-const String defaultTrainVar = "18233/2";
+const char* trainTopic = "train2";
+const char* trainNumTopic = "train-num2";
+const String defaultTrainVar = "18234/2";
 String trainVar;
 String httpResp;
 WiFiClient espClient;
@@ -98,7 +97,7 @@ void setup() {
 
 void loop() {
   trainVar = readWord();
-  if (trainVar <"1") {
+  if (trainVar <"0") {
     trainVar = defaultTrainVar;
   }
 
