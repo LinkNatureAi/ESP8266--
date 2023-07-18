@@ -2,8 +2,8 @@
 #include <ESP8266WiFi.h>
 #include <time.h>
 
-#define ssid     "OPPO"
-#define password  "123456789"
+#define ssid     ""
+#define password  ""
 #define ntpServer  "pool.ntp.org"
 #define gmtOffset_sec  19800 // Indian Standard Time (IST) is GMT+5:30
 #define daylightOffset_sec  0
