@@ -1,14 +1,12 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
 #include <ESP8266WebServer.h>
-#include <WebSocketsServer.h>
-#include <Ticker.h>
 
 Ticker timer;
 bool get_data = false;
 
-const char* ssid = "POCO X3 Pro";
-const char* password = "1234567890";
+const char* ssid = "";
+const char* password = "";
 
 ESP8266WebServer server;
 WebSocketsServer webSocket = WebSocketsServer(81);
@@ -42,15 +40,12 @@ const char webpage[] PROGMEM = R"=====(
   }
   function init() {
     webSocket = new WebSocket('ws://' + window.location.hostname + ':81/');
-    dataPlot = new Chart(document.getElementById("line-chart"), {
+    dataPlot = new Chart {
       type: 'line',
       data: {
         labels: [],
         datasets: [{
-          data: [],
-          label: "Temperature (C)",
-          borderColor: "#3e95cd",
-          fill: false
+       
         }]
       }
     });
