@@ -13,8 +13,8 @@ esp.osdebug(None)
 import gc
 gc.collect()
 
-ssid = 'OPPO'
-password = '123456789'
+ssid = ''
+password = ''
 
 station = network.WLAN(network.STA_IF)
 
